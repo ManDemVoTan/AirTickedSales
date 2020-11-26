@@ -10,6 +10,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AirTickedSales.Data", "AirTickedSales.Data\AirTickedSales.Data.csproj", "{274EF525-EB04-445B-8880-63843951B2D0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AirTickedSales.Application", "AirTickedSales.Application\AirTickedSales.Application.csproj", "{8A96C464-5575-463B-8686-15F5B6BC012C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,6 +24,14 @@ Global
 		{BAACAFB8-7779-4642-8BB1-DFCFB171F145}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BAACAFB8-7779-4642-8BB1-DFCFB171F145}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BAACAFB8-7779-4642-8BB1-DFCFB171F145}.Release|Any CPU.Build.0 = Release|Any CPU
+		{274EF525-EB04-445B-8880-63843951B2D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{274EF525-EB04-445B-8880-63843951B2D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{274EF525-EB04-445B-8880-63843951B2D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{274EF525-EB04-445B-8880-63843951B2D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A96C464-5575-463B-8686-15F5B6BC012C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A96C464-5575-463B-8686-15F5B6BC012C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A96C464-5575-463B-8686-15F5B6BC012C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A96C464-5575-463B-8686-15F5B6BC012C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
