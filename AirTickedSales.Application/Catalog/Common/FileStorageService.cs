@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using Microsoft.AspNetCore.Hosting;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace AirTickedSales.Application.Catalog.Common
@@ -8,9 +9,13 @@ namespace AirTickedSales.Application.Catalog.Common
         private readonly string _userContentFolder;
         private const string USER_CONTENT_FOLDER_NAME = "user-content";
 
-        public FileStorageService(string rootPath)
+        //public FileStorageService(string rootPath)
+        //{
+        //    _userContentFolder = Path.Combine(rootPath, USER_CONTENT_FOLDER_NAME);
+        //}
+        public FileStorageService(IWebHostEnvironment webHostEnvironment)
         {
-            _userContentFolder = Path.Combine(rootPath, USER_CONTENT_FOLDER_NAME);
+            _userContentFolder = Path.Combine(webHostEnvironment.WebRootPath, USER_CONTENT_FOLDER_NAME);
         }
 
         public string GetFileUrl(string fileName)
