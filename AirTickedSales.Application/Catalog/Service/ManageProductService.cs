@@ -5,6 +5,7 @@ using AirTickedSales.Data.Entities;
 using AirTickedSales.Uilities.Exceptions;
 using AirTickedSales.ViewModel.Catalog.Common;
 using AirTickedSales.ViewModel.Catalog.Product;
+using AirTickedSales.ViewModel.Catalog.ProductImages;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -27,9 +28,23 @@ namespace AirTickedSales.Application.Catalog.Service
             _storageService = storageService;
         }
 
-        public async Task<int> AddImages(int productId, List<IFormFile> files)
+        public async Task<int> AddImage(int productId, ProductImageCreateRequest request)
         {
-            throw new NotImplementedException();
+            var productImage = new ProductImage()
+            {
+                Caption = request.Caption,
+                DateCreated = DateTime.Now,
+                IsDefault = request.IsDefault,
+                SortOrder = request.SortOrder
+            };
+            if(request.ImageFile !=null)
+            {
+                productImage.ImagePath = await this.SaveFile(request.ImageFile);
+                productImage.FileSize = request.ImageFile.Length;
+            }
+            _context.ProductImages.Add(productImage);
+             await _context.SaveChangesAsync();
+            return productImage.Id;
         }
 
         public async Task AddViewCount(int productId)
@@ -38,6 +53,7 @@ namespace AirTickedSales.Application.Catalog.Service
             product.ViewCount += 1;
             await _context.SaveChangesAsync();
         }
+  
 
         public async Task<int> Create(ProductCreateRequest request)
         {
@@ -162,14 +178,46 @@ namespace AirTickedSales.Application.Catalog.Service
             return productViewModel;
         }
 
-        public Task<List<ProductImageViewModel>> GetListImage(int productId)
+        public async Task<ProductImageViewModel> GetImageById(int imageId)
         {
-            throw new NotImplementedException();
+            var image = await _context.ProductImages.FindAsync(imageId);
+            if (image == null) throw new AirTicketException($"Cannot find an image width id {imageId}");
+            var viewModel = new ProductImageViewModel()
+            {
+                Caption = image.Caption,
+                DateCreated = image.DateCreated,
+                FileSize = image.FileSize,
+                Id = image.Id,
+                ImagePath = image.ImagePath,
+                IsDefault = image.IsDefault,
+                ProductId = image.ProductId,
+                SortOrder = image.SortOrder
+            };
+            return viewModel;
         }
 
-        public Task<int> RemoveImages(int imageId)
+        public async Task<List<ProductImageViewModel>> GetListImages(int productId)
         {
-            throw new NotImplementedException();
+            return await _context.ProductImages.Where(x => x.ProductId == productId).Select(i => new ProductImageViewModel()
+            {
+                Caption = i.Caption,
+                DateCreated = i.DateCreated,
+                FileSize = i.FileSize,
+                Id = i.Id,
+                ImagePath = i.ImagePath,
+                IsDefault = i.IsDefault,
+                ProductId = i.ProductId,
+                SortOrder = i.SortOrder
+            }).ToListAsync();
+        }
+
+        public async Task<int> RemoveImage( int imageId)
+        {
+            var productImage =await _context.ProductImages.FindAsync(imageId);
+            if (productImage == null) throw new AirTicketException($"cannot find an image width id {imageId}");
+            _context.ProductImages.Remove(productImage);
+            return await _context.SaveChangesAsync();
+
         }
 
         public async Task<int> Update(ProductUpdateRequest request)
@@ -201,9 +249,18 @@ namespace AirTickedSales.Application.Catalog.Service
 
         }
 
-        public Task<int> UpdateImages(int imageId, string caption, bool isDefault)
+        public async Task<int> UpdateImage(int imageId, ProductImageUpdateRequest request)
         {
-            throw new NotImplementedException();
+            var productImage = await _context.ProductImages.FindAsync(imageId);
+            if (productImage == null)
+                throw new AirTicketException($"cannot find an image widt id {imageId} ");
+            if (request.ImageFile != null)
+            {
+                productImage.ImagePath = await this.SaveFile(request.ImageFile);
+                productImage.FileSize = request.ImageFile.Length;
+            }
+            _context.ProductImages.Update(productImage);
+            return await _context.SaveChangesAsync();
         }
 
         public async Task<bool> UpdatePrice(int productId, decimal newPrice)
