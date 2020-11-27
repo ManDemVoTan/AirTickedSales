@@ -14,9 +14,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AirTickedSales.Data", "AirT
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AirTickedSales.Application", "AirTickedSales.Application\AirTickedSales.Application.csproj", "{8A96C464-5575-463B-8686-15F5B6BC012C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AirTickedSales.ViewModel", "AirTickedSales.ViewModel\AirTickedSales.ViewModel.csproj", "{74CB40EA-9873-4FCE-82C2-5A20C5B2A40A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AirTickedSales.ViewModel", "AirTickedSales.ViewModel\AirTickedSales.ViewModel.csproj", "{74CB40EA-9873-4FCE-82C2-5A20C5B2A40A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AirTickedSales.Uilities", "AirTickedSales.Uilities\AirTickedSales.Uilities.csproj", "{34ADE89A-2F65-497E-85EF-4B5B5474027A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AirTickedSales.Uilities", "AirTickedSales.Uilities\AirTickedSales.Uilities.csproj", "{34ADE89A-2F65-497E-85EF-4B5B5474027A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AirTickedSales.BackEndWebApi", "AirTickedSales.BackEndWebApi\AirTickedSales.BackEndWebApi.csproj", "{4C256135-0A62-4B99-88E3-3E4693136DE1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -44,6 +46,10 @@ Global
 		{34ADE89A-2F65-497E-85EF-4B5B5474027A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{34ADE89A-2F65-497E-85EF-4B5B5474027A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{34ADE89A-2F65-497E-85EF-4B5B5474027A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C256135-0A62-4B99-88E3-3E4693136DE1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C256135-0A62-4B99-88E3-3E4693136DE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C256135-0A62-4B99-88E3-3E4693136DE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C256135-0A62-4B99-88E3-3E4693136DE1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
