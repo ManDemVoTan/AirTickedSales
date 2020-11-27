@@ -3,13 +3,15 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <LangVersion>8.0</LangVersion>
+    <ApplicationIcon />
+    <OutputType>Library</OutputType>
+    <StartupObject />
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\AirTickedSales.Data\AirTickedSales.Data.csproj" />
     <ProjectReference Include="..\AirTickedSales.Uilities\AirTickedSales.Uilities.csproj" />
     <ProjectReference Include="..\AirTickedSales.ViewModel\AirTickedSales.ViewModel.csproj" />
-    <ProjectReference Include="..\AirTickedSales.WepApp\AirTickedSales.WepApp.csproj" />
   </ItemGroup>
 
 </Project>
