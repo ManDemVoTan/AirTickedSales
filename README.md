@@ -7,5 +7,11 @@
 - Microsoft.Entityframeworkcore.DeSign
 - Microsoft.Entityframeworkcore.SQLServe
 - Microsoft.Entityframeworkcore.Tools
+- Microsoft.Extensions.configuration.Json 
+- Microsoft.Extensions.Configuration.FileExtensions
+
+## ViewModel
+- Microsoft.AspNetCore.Http.Features
+
 
 ## how to configure and run
