@@ -4,6 +4,7 @@ namespace AirTickedSales.ViewModel.Catalog.Product
 {
     public class GetPublicProductPagingRequest : PagedResultBase
     {
-        public int? categoryId { get; set; }
+        public string LanguageId { get; set; }
+        public int? CategoryId { get; set; }
     }
 }

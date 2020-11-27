@@ -1,3 +1,4 @@
+using AirTickedSales.Application.Catalog.Common;
 using AirTickedSales.Application.Catalog.Products;
 using AirTickedSales.Application.Catalog.Service;
 using AirTickedSales.Data.EF;
@@ -31,10 +32,15 @@ namespace AirTickedSales.BackEndWebApi
             services.AddSwaggerGen(c => {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Swagger AirTickedSales", Version = "v1" });
             });
+
+            //Declare DI
+            services.AddTransient<IStorageService, FileStorageService>();
             services.AddTransient<IPublicProductService, PublicProductService>();
+            services.AddTransient<IManageProductService, ManageProductService>();
+
             services.AddControllersWithViews();
         }
-
+       
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {

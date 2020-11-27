@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.29318.209
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AirTickedSales.WepApp", "AirTickedSales.WepApp\AirTickedSales.WepApp.csproj", "{BAACAFB8-7779-4642-8BB1-DFCFB171F145}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8BE133D6-F184-44B9-948B-CBBA3F9FDED3}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0.Solution Items", "0.Solution Items", "{8BE133D6-F184-44B9-948B-CBBA3F9FDED3}"
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
 	EndProjectSection
@@ -18,7 +18,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AirTickedSales.ViewModel", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AirTickedSales.Uilities", "AirTickedSales.Uilities\AirTickedSales.Uilities.csproj", "{34ADE89A-2F65-497E-85EF-4B5B5474027A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AirTickedSales.BackEndWebApi", "AirTickedSales.BackEndWebApi\AirTickedSales.BackEndWebApi.csproj", "{4C256135-0A62-4B99-88E3-3E4693136DE1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AirTickedSales.BackEndWebApi", "AirTickedSales.BackEndWebApi\AirTickedSales.BackEndWebApi.csproj", "{4C256135-0A62-4B99-88E3-3E4693136DE1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1.Infrastructure", "1.Infrastructure", "{E47F940C-293C-4E2E-A3D4-1FFED8B0A762}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2.Domain", "2.Domain", "{5B5E74A6-4666-430C-BA52-98A14F19567D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Hosts", "Hosts", "{CFE47243-D1F8-4461-A769-1CA4779A857C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,6 +59,14 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{BAACAFB8-7779-4642-8BB1-DFCFB171F145} = {CFE47243-D1F8-4461-A769-1CA4779A857C}
+		{274EF525-EB04-445B-8880-63843951B2D0} = {5B5E74A6-4666-430C-BA52-98A14F19567D}
+		{8A96C464-5575-463B-8686-15F5B6BC012C} = {5B5E74A6-4666-430C-BA52-98A14F19567D}
+		{74CB40EA-9873-4FCE-82C2-5A20C5B2A40A} = {E47F940C-293C-4E2E-A3D4-1FFED8B0A762}
+		{34ADE89A-2F65-497E-85EF-4B5B5474027A} = {E47F940C-293C-4E2E-A3D4-1FFED8B0A762}
+		{4C256135-0A62-4B99-88E3-3E4693136DE1} = {CFE47243-D1F8-4461-A769-1CA4779A857C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DF274F31-1984-42BA-8D9D-3D91E7C2A86B}

@@ -19,12 +19,13 @@ namespace AirTickedSales.Application.Catalog.Service
             _context = context;
         }
 
-        public async Task<List<ProductViewModel>> GetAll()
+        public async Task<List<ProductViewModel>> GetAll(string languageId)
         {
             var query = from p in _context.Products
                         join pt in _context.ProductTranslations on p.Id equals pt.ProductId
                         join pic in _context.ProductInCategories on pt.Id equals pic.ProductId
                         join c in _context.Categories on pic.CategoryId equals c.Id
+                        where pt.LanguageId == languageId
                         select new { p, pt, pic };
             var data = await query.Select(x => new ProductViewModel()
             {
@@ -51,11 +52,12 @@ namespace AirTickedSales.Application.Catalog.Service
                         join pt in _context.ProductTranslations on p.Id equals pt.ProductId
                         join pic in _context.ProductInCategories on pt.Id equals pic.ProductId
                         join c in _context.Categories on pic.CategoryId equals c.Id
+                        where pt.LanguageId == request.LanguageId
                         select new { p, pt, pic };
       
-            if (request.categoryId.HasValue && request.categoryId.Value > 0)
+            if (request.CategoryId.HasValue && request.CategoryId.Value > 0)
             {
-                query = query.Where(x => x.pic.CategoryId == request.categoryId);
+                query = query.Where(x => x.pic.CategoryId == request.CategoryId);
             }
 
             int totalRow = await query.CountAsync();
