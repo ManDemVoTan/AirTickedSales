@@ -29,7 +29,7 @@ namespace AirTickedSales.Application.Catalog.System.User
         {
             var user = await _userManager.FindByNameAsync(request.UserName);
             if (user == null)  return null;
-            var result = await _singInManager.PasswordSignInAsync(user, request.passWord, request.RememberMe, true);
+            var result = await _singInManager.PasswordSignInAsync(user, request.PassWord, request.RememberMe, true);
             if (!result.Succeeded) return null;
             var roles = _userManager.GetRolesAsync(user);
             var claims = new[]
