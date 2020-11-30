@@ -9,6 +9,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.8.0" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.8.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\AirTickedSales.Data\AirTickedSales.Data.csproj" />
     <ProjectReference Include="..\AirTickedSales.Uilities\AirTickedSales.Uilities.csproj" />
     <ProjectReference Include="..\AirTickedSales.ViewModel\AirTickedSales.ViewModel.csproj" />
