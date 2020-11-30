@@ -9,9 +9,10 @@
 - Microsoft.Entityframeworkcore.Tools
 - Microsoft.Extensions.configuration.Json 
 - Microsoft.Extensions.Configuration.FileExtensions
+-  FluentValidation (https://docs.fluentvalidation.net/en/latest/custom-validators.html)
+-  Microsoft.AspNetCore.Authentication.JwtBearer
 
 ## ViewModel
 - Microsoft.AspNetCore.Http.Features
-
 
 ## how to configure and run

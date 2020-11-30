@@ -2,12 +2,14 @@
 using AirTickedSales.Application.Catalog.Products;
 using AirTickedSales.ViewModel.Catalog.Product;
 using AirTickedSales.ViewModel.Catalog.ProductImages;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AirTickedSales.BackEndWebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ProductsController : ControllerBase
     {
         private readonly IPublicProductService _publicProductService;
@@ -85,7 +87,7 @@ namespace AirTickedSales.BackEndWebApi.Controllers
         }
 
         //Image
-        [HttpPost]
+        [HttpPost("{productId}/images")]
         public async Task<IActionResult> CreateImage(int productId, [FromForm]ProductImageCreateRequest request)
         {
             if (!ModelState.IsValid)
@@ -122,7 +124,7 @@ namespace AirTickedSales.BackEndWebApi.Controllers
         }
 
 
-        [HttpPut("{productId}/images/{imageId}")]
+        [HttpDelete("{productId}/images/{imageId}")]
         public async Task<IActionResult> DeleteImage(int imageId)
         {
             if (!ModelState.IsValid)
