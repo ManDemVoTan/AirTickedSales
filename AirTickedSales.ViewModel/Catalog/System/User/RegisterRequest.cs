@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AirTickedSales.ViewModel.Catalog.System
+namespace AirTickedSales.ViewModel.Catalog.System.User
 {
     public class RegisterRequest
     {

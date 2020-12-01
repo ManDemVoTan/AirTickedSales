@@ -1,5 +1,5 @@
 ﻿
-@using  AirTickedSales.ViewModel.Catalog.System
+@using  AirTickedSales.ViewModel.Catalog.System.User
 @model LoginRequest
 @{
     Layout = null;
@@ -25,9 +25,9 @@
                     <div class="row justify-content-center">
                         <div class="col-lg-5">
                             <div class="card shadow-lg border-0 rounded-lg mt-5">
-                                <div class="card-header"><h3 class="text-center font-weight-light my-4">Đăng nhập</h3></div>
+                                <div class="card-header"><h3 class="text-center font-weight-light my-4">Đăng nhập </h3></div>
                                 <div class="card-body">
-                                    <form>
+                                    <form asp-action="Login" asp-controller="User" method="post">
                                         <div class="form-group">
                                             <label class="small mb-1" for="inputEmailAddress">Tài khoản</label>
                                             <input class="form-control py-4" asp-for="UserName" type="text" placeholder="Enter email address" />
@@ -49,7 +49,7 @@
                                     </form>
                                 </div>
                                 <div class="card-footer text-center">
-                                    <div class="small"><a href="Liên hệ quản trị hệ thống!</a></div>
+                                    <div class="small">Liên hệ quản trị hệ thống!</div>
                                 </div>
                             </div>
                         </div>

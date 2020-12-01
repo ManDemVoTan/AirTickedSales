@@ -1,5 +1,5 @@
 ﻿using AirTickedSales.Data.Entities;
-using AirTickedSales.ViewModel.Catalog.System;
+using AirTickedSales.ViewModel.Catalog.System.User;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;

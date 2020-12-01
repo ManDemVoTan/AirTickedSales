@@ -1,4 +1,4 @@
-﻿using AirTickedSales.ViewModel.Catalog.System;
+﻿using AirTickedSales.ViewModel.Catalog.System.User;
 using System.Threading.Tasks;
 
 namespace AirTickedSales.Application.Catalog.System.User
