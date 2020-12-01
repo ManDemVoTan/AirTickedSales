@@ -1,13 +1,12 @@
 ﻿using AirTickedSales.ViewModel.Catalog.Common;
 using AirTickedSales.ViewModel.Catalog.Product;
 using AirTickedSales.ViewModel.Catalog.ProductImages;
-using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace AirTickedSales.Application.Catalog.Products
 {
-    public interface IManageProductService
+    public interface IProductService
     {
         Task<int> Create(ProductCreateRequest request);
 
@@ -24,5 +23,6 @@ namespace AirTickedSales.Application.Catalog.Products
         Task<int> UpdateImage( int imageId, ProductImageUpdateRequest request);
         Task<ProductImageViewModel> GetImageById(int imageId);
         Task<List<ProductImageViewModel>> GetListImages(int productId);
+        Task<PageResult<ProductViewModel>> GetAllByCategoryId(string languageId, GetPublicProductPagingRequest request);
     }
 }

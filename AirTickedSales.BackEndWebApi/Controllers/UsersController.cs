@@ -1,6 +1,7 @@
 ﻿using AirTickedSales.Application.Catalog.System.User;
 using AirTickedSales.ViewModel.Catalog.System.User;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -16,7 +17,7 @@ namespace AirTickedSales.BackEndWebApi.Controllers
             _userService = userService;
         }
 
-        [HttpPost("authenticate")]
+        [HttpPost]
         [AllowAnonymous]
         public async Task<IActionResult> Authenticate([FromBody] LoginRequest request)
         {
@@ -45,6 +46,13 @@ namespace AirTickedSales.BackEndWebApi.Controllers
                 return BadRequest("Register is unsuccessFul");
             }
             return Ok();
+        }
+
+        [HttpGet("paging")]
+        public async Task<IActionResult> GetUserPaging( [FromQuery]GetUserPagingRequets request)
+        {
+            var product = await _userService.GetUserPaging(request);
+            return Ok(product);
         }
     }
 }

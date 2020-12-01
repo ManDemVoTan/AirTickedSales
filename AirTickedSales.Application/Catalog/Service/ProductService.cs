@@ -18,11 +18,11 @@ using System.Threading.Tasks;
 
 namespace AirTickedSales.Application.Catalog.Service
 {
-    public class ManageProductService : IManageProductService
+    public class ProductService : IProductService
     {
         private readonly AirTickedSaleDbContext _context;
         private readonly IStorageService _storageService;
-        public ManageProductService(AirTickedSaleDbContext context, IStorageService storageService)
+        public ProductService(AirTickedSaleDbContext context, IStorageService storageService)
         {
             _context = context;
             _storageService = storageService;
@@ -37,13 +37,13 @@ namespace AirTickedSales.Application.Catalog.Service
                 IsDefault = request.IsDefault,
                 SortOrder = request.SortOrder
             };
-            if(request.ImageFile !=null)
+            if (request.ImageFile != null)
             {
                 productImage.ImagePath = await this.SaveFile(request.ImageFile);
                 productImage.FileSize = request.ImageFile.Length;
             }
             _context.ProductImages.Add(productImage);
-             await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
             return productImage.Id;
         }
 
@@ -53,7 +53,7 @@ namespace AirTickedSales.Application.Catalog.Service
             product.ViewCount += 1;
             await _context.SaveChangesAsync();
         }
-  
+
 
         public async Task<int> Create(ProductCreateRequest request)
         {
@@ -95,7 +95,7 @@ namespace AirTickedSales.Application.Catalog.Service
                 };
             }
             _context.Products.Add(product);
-             await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
             return product.Id;
         }
 
@@ -112,6 +112,46 @@ namespace AirTickedSales.Application.Catalog.Service
             return await _context.SaveChangesAsync();
         }
 
+        public async Task<PageResult<ProductViewModel>> GetAllByCategoryId(string languageId, GetPublicProductPagingRequest request)
+        {
+            var query = from p in _context.Products
+                        join pt in _context.ProductTranslations on p.Id equals pt.ProductId
+                        join pic in _context.ProductInCategories on pt.Id equals pic.ProductId
+                        join c in _context.Categories on pic.CategoryId equals c.Id
+                        where pt.LanguageId == languageId
+                        select new { p, pt, pic };
+
+            if (request.CategoryId.HasValue && request.CategoryId.Value > 0)
+            {
+                query = query.Where(x => x.pic.CategoryId == request.CategoryId);
+            }
+
+            int totalRow = await query.CountAsync();
+            var data = await query.Skip((request.PageIndex - 1) * request.PageSize)
+                .Take(request.PageSize)
+                .Select(x => new ProductViewModel()
+                {
+                    Id = x.p.Id,
+                    Name = x.pt.Name,
+                    DateCreated = x.p.DateCreated,
+                    Description = x.pt.Description,
+                    Details = x.pt.Details,
+                    LanguageId = x.pt.LanguageId,
+                    OriginalPrice = x.p.OriginalPrice,
+                    Price = x.p.Price,
+                    SeoAlias = x.pt.SeoAlias,
+                    SeoDescription = x.pt.SeoDescription,
+                    SeoTitle = x.pt.SeoTitle,
+                    Stock = x.p.Stock,
+                    ViewCount = x.p.ViewCount
+                }).ToListAsync();
+            var pageResult = new PageResult<ProductViewModel>()
+            {
+                TotalRecord = totalRow,
+                Items = data
+            };
+            return pageResult;
+        }
 
         public async Task<PageResult<ProductViewModel>> GetAllPaging(GetManageProductPagingRequest request)
         {

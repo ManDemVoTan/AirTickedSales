@@ -34,7 +34,8 @@ namespace AirTickedSales.WebAdminApp
                     options.AccessDeniedPath = "/Action/Abc";
                 }
             );
-            services.AddControllersWithViews().AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<LoginRequestValidator>()); ;
+            services.AddControllersWithViews().AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<LoginRequestValidator>());
+            services.AddSession(options => { options.IdleTimeout = TimeSpan.FromSeconds(30); });
             IMvcBuilder builder = services.AddRazorPages();
             services.AddTransient<IUserApiClient, UserApiClient>();
             var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
@@ -67,7 +68,7 @@ namespace AirTickedSales.WebAdminApp
             app.UseRouting();
 
             app.UseAuthorization();
-
+            app.UseSession();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

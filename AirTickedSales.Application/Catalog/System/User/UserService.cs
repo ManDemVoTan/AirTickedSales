@@ -1,10 +1,13 @@
 ﻿using AirTickedSales.Data.Entities;
+using AirTickedSales.ViewModel.Catalog.Common;
 using AirTickedSales.ViewModel.Catalog.System.User;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,7 +31,7 @@ namespace AirTickedSales.Application.Catalog.System.User
         public async Task<string> AuthentiCate(LoginRequest request)
         {
             var user = await _userManager.FindByNameAsync(request.UserName);
-            if (user == null)  return null;
+            if (user == null) return null;
             var result = await _singInManager.PasswordSignInAsync(user, request.PassWord, request.RememberMe, true);
             if (!result.Succeeded) return null;
             var roles = _userManager.GetRolesAsync(user);
@@ -50,6 +53,37 @@ namespace AirTickedSales.Application.Catalog.System.User
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
+        public async Task<PageResult<UserVm>> GetUserPaging(GetUserPagingRequets requets)
+        {
+            var query = _userManager.Users;
+            if (!string.IsNullOrEmpty(requets.Keyword))
+            {
+                query = query.Where(x => x.UserName.Contains(requets.Keyword) || x.PhoneNumber.Contains(requets.Keyword));
+            }
+
+            int totalRow = await query.CountAsync();
+
+            var data = await query.Skip((requets.PageIndex - 1) * requets.PageSize)
+                .Take(requets.PageSize)
+                .Select(x => new UserVm
+                {
+                    Id = x.Id,
+                    PhoneNumber = x.PhoneNumber,
+                    FirstName = x.FirstName,
+                    LastName = x.LastName,
+                    Email = x.LastName,
+                    UserName = x.UserName
+                }).ToListAsync();
+            var pageResult = new PageResult<UserVm>()
+            {
+                TotalRecord = totalRow,
+                Items = data
+            };
+            return pageResult;
+
+
+        }
+
         public async Task<bool> Register(RegisterRequest request)
         {
             var user = new AppUser()
@@ -62,7 +96,7 @@ namespace AirTickedSales.Application.Catalog.System.User
                 PhoneNumber = request.PhoneNUmber,
             };
             var result = await _userManager.CreateAsync(user, request.PassWord);
-            if(result.Succeeded)
+            if (result.Succeeded)
             {
                 return true;
             }
