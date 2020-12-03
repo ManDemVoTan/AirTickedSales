@@ -49,7 +49,7 @@ namespace AirTickedSales.WebAdminApp.Services
             var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
             var client = _httpClientFactory.CreateClient();
             client.BaseAddress = new Uri(_configuration["BaseAddress"]);
-            var response = await client.PostAsync("/api/Users", httpContent);
+            var response = await client.PostAsync("/api/Users/register", httpContent);
             return response.IsSuccessStatusCode;
         }
     }

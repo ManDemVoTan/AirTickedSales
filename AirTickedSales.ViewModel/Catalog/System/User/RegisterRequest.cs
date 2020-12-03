@@ -10,8 +10,10 @@ namespace AirTickedSales.ViewModel.Catalog.System.User
         [Display(Name = "Họ")]
         public string LastName { get; set; }
         [Display(Name = "Ngày sinh")]
+      
         [DataType(DataType.Date)]
-        public DateTime Dob { get; set; }
+        [DisplayFormat(DataFormatString = "{dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        public DateTime  Dob { get; set; }
         [Display(Name = "Email")]
         public string Email { get; set; }
         [Display(Name = "Số điện thoại")]
