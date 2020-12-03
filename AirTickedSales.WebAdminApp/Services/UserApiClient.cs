@@ -42,5 +42,15 @@ namespace AirTickedSales.WebAdminApp.Services
             var users = JsonConvert.DeserializeObject<PageResult<UserVm>>(body);
             return users;
         }
+
+        public async Task<bool> RegisterUser(RegisterRequest request)
+        {
+            var json = JsonConvert.SerializeObject(request);
+            var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
+            var client = _httpClientFactory.CreateClient();
+            client.BaseAddress = new Uri(_configuration["BaseAddress"]);
+            var response = await client.PostAsync("/api/Users", httpContent);
+            return response.IsSuccessStatusCode;
+        }
     }
 }

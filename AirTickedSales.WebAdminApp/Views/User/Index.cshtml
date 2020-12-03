@@ -2,20 +2,19 @@
 @model PageResult<AirTickedSales.ViewModel.Catalog.System.User.UserVm>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Danh sách người dùng";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="container-fluid">
-    <h1 class="mt-4">Tables</h1>
+    <h1 class="mt-4">Danh sách người dùng</h1>
     <ol class="breadcrumb mb-4">
-        <li class="breadcrumb-item"><a href="index.html">Tài khoản</a></li>
-        <li class="breadcrumb-item active">Danh sách</li>
+        <li class="breadcrumb-item"><a href="index.html">Trang chủ</a></li>
+        <li class="breadcrumb-item active">Danh sách người dùng</li>
     </ol>
     <div class="card mb-4">
         <div class="card-header">
-            <i class="fas fa-table mr-1"></i>
-            Danh sách tài khoản
+          <a class="btn btn-success" asp-action="Create" asp-controller="User">Tạo mới</a>
         </div>
         <div class="card-body">
             <div class="table-responsive">
