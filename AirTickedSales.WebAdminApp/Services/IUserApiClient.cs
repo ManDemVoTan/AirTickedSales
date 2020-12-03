@@ -8,5 +8,6 @@ namespace AirTickedSales.WebAdminApp.Services
     {
         Task<string> Authenticate(LoginRequest request);
         Task<PageResult<UserVm>> GetUserPagings (GetUserPagingRequets request);
+        Task<bool> RegisterUser(RegisterRequest request);
     }
 }
