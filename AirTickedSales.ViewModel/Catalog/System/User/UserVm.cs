@@ -9,6 +9,7 @@ namespace AirTickedSales.ViewModel.Catalog.System.User
         public string LastName { get; set; }
         public string PhoneNumber { get; set; }
         public string UserName { get; set; }
+        public DateTime Dob { get; set; }
 
         public string Email { get; set; }
     }

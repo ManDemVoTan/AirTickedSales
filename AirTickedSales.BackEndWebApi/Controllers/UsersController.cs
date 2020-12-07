@@ -1,8 +1,8 @@
 ﻿using AirTickedSales.Application.Catalog.System.User;
 using AirTickedSales.ViewModel.Catalog.System.User;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Threading.Tasks;
 
 namespace AirTickedSales.BackEndWebApi.Controllers
@@ -27,9 +27,9 @@ namespace AirTickedSales.BackEndWebApi.Controllers
             }
 
             var resultToken = await _userService.AuthentiCate(request);
-            if(string.IsNullOrEmpty(resultToken))
+            if(string.IsNullOrEmpty(resultToken.ResultObject))
             {
-                return BadRequest("UserName or PassWord is Incorrect");
+                return BadRequest(resultToken);
             }
             return Ok(resultToken);
         }
@@ -41,11 +41,26 @@ namespace AirTickedSales.BackEndWebApi.Controllers
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
             var result = await _userService.Register(request);
-            if (!result)
+            if (!result.IsSuccessed)
             {
-                return BadRequest("Register is unsuccessFul");
+                return BadRequest(result);
             }
-            return Ok();
+            return Ok(result);
+        }
+
+        //PUT: http://localhost/api/users/id
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(Guid id, [FromBody]UserUpdateRequest request)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var result = await _userService.Update(id, request);
+            if (!result.IsSuccessed)
+            {
+                return BadRequest(result);
+            }
+            return Ok(result);
         }
 
         [HttpGet("paging")]
@@ -53,6 +68,13 @@ namespace AirTickedSales.BackEndWebApi.Controllers
         {
             var product = await _userService.GetUserPaging(request);
             return Ok(product);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(Guid id)
+        {
+            var user = await _userService.GetById(id);
+            return Ok(user);
         }
     }
 }

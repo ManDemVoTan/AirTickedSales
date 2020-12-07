@@ -26,16 +26,14 @@ namespace AirTickedSales.WebAdminApp.Controllers
         }
         public async Task<IActionResult> Index(string keyWord, int pageIndex = 1, int pageSize = 10)
         {
-            var sessions = HttpContext.Session.GetString("Token");
             var request = new GetUserPagingRequets()
             {
-                BearerToken = sessions,
                 Keyword = keyWord,
                 PageIndex = pageIndex,
                 PageSize = pageSize
             };
             var data = await _userApiClient.GetUserPagings(request);
-            return View(data);
+            return View(data.ResultObject);
         }
     
         [HttpGet]
@@ -43,7 +41,6 @@ namespace AirTickedSales.WebAdminApp.Controllers
         {
             return View();
         }
-
 
         [HttpPost]
         public async Task<IActionResult> Create( RegisterRequest request)
@@ -53,10 +50,48 @@ namespace AirTickedSales.WebAdminApp.Controllers
                 return View();
             }
             var result = await _userApiClient.RegisterUser(request);
-            if(result)
+            if(result.IsSuccessed)
             {
                 return RedirectToAction("Index");
             }
+            ModelState.AddModelError("", result.Message);
+            return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(Guid id)
+        {
+            var result =  await _userApiClient.GetById(id);
+            if(result.IsSuccessed)
+            {
+                var user = result.ResultObject;
+                var userUpdate = new UserUpdateRequest()
+                {
+                    Dob = user.Dob,
+                    Email = user.Email,
+                    LastName = user.LastName,
+                    FirstName = user.FirstName,
+                    PhoneNUmber = user.PhoneNumber,
+                    Id = id
+                };
+                return View(userUpdate);
+            }
+            return RedirectToAction("Error", "Home");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(UserUpdateRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+            var result = await _userApiClient.UpdateUser(request.Id, request);
+            if (result.IsSuccessed)
+            {
+                return RedirectToAction("Index");
+            }
+            ModelState.AddModelError("", result.Message);
             return View();
         }
 
