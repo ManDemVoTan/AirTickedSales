@@ -66,7 +66,8 @@ namespace AirTickedSales.Application.Catalog.System.User
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 Email = user.Email,
-                Dob = user.Dob
+                Dob = user.Dob,
+                UserName = user.UserName
             };
             return new ApiSuccessResult<UserVm>(userVm);
         }
@@ -95,7 +96,9 @@ namespace AirTickedSales.Application.Catalog.System.User
             }).ToListAsync();
         var pageResult = new PageResult<UserVm>()
         {
-            TotalRecord = totalRow,
+            TotalRecords = totalRow,
+            PageIndex = requets.PageIndex,
+            PageSize = requets.PageSize,
             Items = data
         };
         return new ApiSuccessResult<PageResult<UserVm>>(pageResult);
