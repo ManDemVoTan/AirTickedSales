@@ -24,7 +24,7 @@ namespace AirTickedSales.WebAdminApp.Controllers
             _userApiClient = userApiClient;
             _configuration = configuration;
         }
-        public async Task<IActionResult> Index(string keyWord, int pageIndex = 1, int pageSize = 10)
+        public async Task<IActionResult> Index(string keyWord, int pageIndex = 1, int pageSize = 1)
         {
             var request = new GetUserPagingRequets()
             {
@@ -35,7 +35,14 @@ namespace AirTickedSales.WebAdminApp.Controllers
             var data = await _userApiClient.GetUserPagings(request);
             return View(data.ResultObject);
         }
-    
+
+        [HttpGet]
+        public async Task<IActionResult> Details(Guid id)
+        {
+            var result = await _userApiClient.GetById(id);
+            return View(result.ResultObject);
+        }
+
         [HttpGet]
         public IActionResult Create()
         {

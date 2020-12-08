@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace AirTickedSales.ViewModel.Catalog.Product
 {
-    public class GetManageProductPagingRequest : PagedResultBase
+    public class GetManageProductPagingRequest : PagingdRequestBase
     {
         public string keyWord { get; set; }
 

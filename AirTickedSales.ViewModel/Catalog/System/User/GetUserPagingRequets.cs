@@ -5,7 +5,7 @@ using System.Text;
 
 namespace AirTickedSales.ViewModel.Catalog.System.User
 {
-    public class GetUserPagingRequets : PagedResultBase
+    public class GetUserPagingRequets : PagingdRequestBase
     {
         public string Keyword { get; set; }
     }
