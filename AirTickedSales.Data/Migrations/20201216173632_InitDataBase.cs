@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace AirTickedSales.Data.Migrations
 {
-    public partial class initial : Migration
+    public partial class InitDataBase : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -149,6 +149,32 @@ namespace AirTickedSales.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "CompanyInfo",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CompanyCode = table.Column<string>(maxLength: 50, nullable: false),
+                    CompanyName = table.Column<string>(maxLength: 500, nullable: false),
+                    ParentId = table.Column<int>(nullable: true),
+                    TypeId = table.Column<int>(nullable: false),
+                    Index = table.Column<int>(nullable: true),
+                    ParentTag = table.Column<string>(nullable: true),
+                    ShortName = table.Column<string>(maxLength: 500, nullable: false),
+                    Phone = table.Column<string>(nullable: true),
+                    Email = table.Column<string>(nullable: true),
+                    Fax = table.Column<string>(nullable: true),
+                    Skype = table.Column<string>(nullable: true),
+                    Address = table.Column<string>(nullable: false),
+                    CountryId = table.Column<int>(nullable: true),
+                    Website = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CompanyInfo", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Contacts",
                 columns: table => new
                 {
@@ -254,6 +280,29 @@ namespace AirTickedSales.Data.Migrations
                     table.PrimaryKey("PK_Orders", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Orders_AppUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AppUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TimeKeeping",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<Guid>(nullable: false),
+                    UserCode = table.Column<string>(nullable: true),
+                    Month = table.Column<int>(nullable: false),
+                    Department = table.Column<string>(nullable: true),
+                    Address = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TimeKeeping", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TimeKeeping_AppUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AppUsers",
                         principalColumn: "Id",
@@ -453,6 +502,28 @@ namespace AirTickedSales.Data.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "DataCheckTime",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    Day = table.Column<int>(nullable: false),
+                    Type = table.Column<string>(nullable: true),
+                    CheckIn = table.Column<string>(nullable: true),
+                    CheckOut = table.Column<string>(nullable: true),
+                    TimeKeepingId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DataCheckTime", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_DataCheckTime_TimeKeeping_TimeKeepingId",
+                        column: x => x.TimeKeepingId,
+                        principalTable: "TimeKeeping",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.InsertData(
                 table: "AppConfigs",
                 columns: new[] { "Key", "Value" },
@@ -466,7 +537,7 @@ namespace AirTickedSales.Data.Migrations
             migrationBuilder.InsertData(
                 table: "AppRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Description", "Name", "NormalizedName" },
-                values: new object[] { new Guid("8d04dce2-969a-435d-bba4-df3f325983dc"), "59f88313-edd9-49a9-9363-3511726e08e0", "Administrator role", "admin", "admin" });
+                values: new object[] { new Guid("8d04dce2-969a-435d-bba4-df3f325983dc"), "67cd5dec-f032-4a0a-879e-5498b5938cdb", "Administrator role", "admin", "admin" });
 
             migrationBuilder.InsertData(
                 table: "AppUserRoles",
@@ -476,7 +547,7 @@ namespace AirTickedSales.Data.Migrations
             migrationBuilder.InsertData(
                 table: "AppUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Dob", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { new Guid("69bd714f-9576-45ba-b5b7-f00649be00de"), 0, "6d6829cc-9a3b-43a3-929e-3003c65281f8", new DateTime(1997, 1, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), "anhtuan20011997@gmail.com", true, "Anh", "Tuan", false, null, "anhtuan20011997@gmail.com", "admin", "AQAAAAEAACcQAAAAEHk7Rz4T/F9zlORiFGlFMfrUkJOpNjAFtbwOjKha5WxzlEZWonDeO3BlYmM4zzvjMA==", null, false, "", false, "admin" });
+                values: new object[] { new Guid("69bd714f-9576-45ba-b5b7-f00649be00de"), 0, "be72b52e-e142-46bd-a259-5e7c57646505", new DateTime(1997, 1, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), "anhtuan20011997@gmail.com", true, "Anh", "Tuan", false, null, "anhtuan20011997@gmail.com", "admin", "AQAAAAEAACcQAAAAELsRwukoXMgH4RmSbHapDQ/Q8YQjYHin/B5t3KNj77zA6CR16eByxokOhGtEWSjtjg==", null, false, "", false, "admin" });
 
             migrationBuilder.InsertData(
                 table: "Categories",
@@ -499,7 +570,7 @@ namespace AirTickedSales.Data.Migrations
             migrationBuilder.InsertData(
                 table: "Products",
                 columns: new[] { "Id", "DateCreated", "IsFeatured", "OriginalPrice", "Price" },
-                values: new object[] { 1, new DateTime(2020, 11, 27, 0, 43, 56, 904, DateTimeKind.Local).AddTicks(5882), null, 100000m, 200000m });
+                values: new object[] { 1, new DateTime(2020, 12, 17, 0, 36, 31, 654, DateTimeKind.Local).AddTicks(1913), null, 100000m, 200000m });
 
             migrationBuilder.InsertData(
                 table: "CategoryTranslations",
@@ -547,6 +618,11 @@ namespace AirTickedSales.Data.Migrations
                 column: "LanguageId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_DataCheckTime_TimeKeepingId",
+                table: "DataCheckTime",
+                column: "TimeKeepingId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_OrderDetails_ProductId",
                 table: "OrderDetails",
                 column: "ProductId");
@@ -575,6 +651,11 @@ namespace AirTickedSales.Data.Migrations
                 name: "IX_ProductTranslations_ProductId",
                 table: "ProductTranslations",
                 column: "ProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TimeKeeping_UserId",
+                table: "TimeKeeping",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Transactions_UserId",
@@ -612,7 +693,13 @@ namespace AirTickedSales.Data.Migrations
                 name: "CategoryTranslations");
 
             migrationBuilder.DropTable(
+                name: "CompanyInfo");
+
+            migrationBuilder.DropTable(
                 name: "Contacts");
+
+            migrationBuilder.DropTable(
+                name: "DataCheckTime");
 
             migrationBuilder.DropTable(
                 name: "OrderDetails");
@@ -634,6 +721,9 @@ namespace AirTickedSales.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Transactions");
+
+            migrationBuilder.DropTable(
+                name: "TimeKeeping");
 
             migrationBuilder.DropTable(
                 name: "Orders");

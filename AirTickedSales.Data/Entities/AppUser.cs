@@ -15,6 +15,7 @@ namespace AirTickedSales.Data.Entities
         public List<Cart> Carts { get; set; }
 
         public List<Order> Orders { get; set; }
+        public List<TimeKeeping> TimeKeeping { get; set; }
 
         public List<Transaction> Transactions { get; set; }
     }

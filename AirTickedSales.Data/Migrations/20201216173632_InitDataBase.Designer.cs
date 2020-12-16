@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AirTickedSales.Data.Migrations
 {
     [DbContext(typeof(AirTickedSaleDbContext))]
-    [Migration("20201126174357_initial")]
-    partial class initial
+    [Migration("20201216173632_InitDataBase")]
+    partial class InitDataBase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -80,7 +80,7 @@ namespace AirTickedSales.Data.Migrations
                         new
                         {
                             Id = new Guid("8d04dce2-969a-435d-bba4-df3f325983dc"),
-                            ConcurrencyStamp = "59f88313-edd9-49a9-9363-3511726e08e0",
+                            ConcurrencyStamp = "67cd5dec-f032-4a0a-879e-5498b5938cdb",
                             Description = "Administrator role",
                             Name = "admin",
                             NormalizedName = "admin"
@@ -157,7 +157,7 @@ namespace AirTickedSales.Data.Migrations
                         {
                             Id = new Guid("69bd714f-9576-45ba-b5b7-f00649be00de"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "6d6829cc-9a3b-43a3-929e-3003c65281f8",
+                            ConcurrencyStamp = "be72b52e-e142-46bd-a259-5e7c57646505",
                             Dob = new DateTime(1997, 1, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "anhtuan20011997@gmail.com",
                             EmailConfirmed = true,
@@ -166,7 +166,7 @@ namespace AirTickedSales.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "anhtuan20011997@gmail.com",
                             NormalizedUserName = "admin",
-                            PasswordHash = "AQAAAAEAACcQAAAAEHk7Rz4T/F9zlORiFGlFMfrUkJOpNjAFtbwOjKha5WxzlEZWonDeO3BlYmM4zzvjMA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAELsRwukoXMgH4RmSbHapDQ/Q8YQjYHin/B5t3KNj77zA6CR16eByxokOhGtEWSjtjg==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -336,6 +336,69 @@ namespace AirTickedSales.Data.Migrations
                             SeoDescription = "The shirt products for women",
                             SeoTitle = "The shirt products for women"
                         });
+                });
+
+            modelBuilder.Entity("AirTickedSales.Data.Entities.CompanyInfo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
+                        .HasAnnotation("SqlServer:IdentitySeed", 1)
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CompanyCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("CompanyName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(500)")
+                        .HasMaxLength(500);
+
+                    b.Property<int?>("CountryId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Fax")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("Index")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ParentId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ParentTag")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Phone")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ShortName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(500)")
+                        .HasMaxLength(500);
+
+                    b.Property<string>("Skype")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TypeId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Website")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CompanyInfo");
                 });
 
             modelBuilder.Entity("AirTickedSales.Data.Entities.Contact", b =>
@@ -514,7 +577,7 @@ namespace AirTickedSales.Data.Migrations
                         new
                         {
                             Id = 1,
-                            DateCreated = new DateTime(2020, 11, 27, 0, 43, 56, 904, DateTimeKind.Local).AddTicks(5882),
+                            DateCreated = new DateTime(2020, 12, 17, 0, 36, 31, 654, DateTimeKind.Local).AddTicks(1913),
                             OriginalPrice = 100000m,
                             Price = 200000m,
                             Stock = 0,
@@ -725,6 +788,65 @@ namespace AirTickedSales.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Slides");
+                });
+
+            modelBuilder.Entity("AirTickedSales.Data.Entities.TimeKeeping", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
+                        .HasAnnotation("SqlServer:IdentitySeed", 1)
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Department")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Month")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("TimeKeeping");
+                });
+
+            modelBuilder.Entity("AirTickedSales.Data.Entities.TimeKeeping+DataCheckTime", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("CheckIn")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CheckOut")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Day")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("TimeKeepingId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Type")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TimeKeepingId");
+
+                    b.ToTable("DataCheckTime");
                 });
 
             modelBuilder.Entity("AirTickedSales.Data.Entities.Transaction", b =>
@@ -963,6 +1085,22 @@ namespace AirTickedSales.Data.Migrations
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("AirTickedSales.Data.Entities.TimeKeeping", b =>
+                {
+                    b.HasOne("AirTickedSales.Data.Entities.AppUser", "AppUser")
+                        .WithMany("TimeKeeping")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("AirTickedSales.Data.Entities.TimeKeeping+DataCheckTime", b =>
+                {
+                    b.HasOne("AirTickedSales.Data.Entities.TimeKeeping", null)
+                        .WithMany("DataCheck")
+                        .HasForeignKey("TimeKeepingId");
                 });
 
             modelBuilder.Entity("AirTickedSales.Data.Entities.Transaction", b =>

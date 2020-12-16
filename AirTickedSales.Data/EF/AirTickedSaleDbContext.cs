@@ -32,6 +32,8 @@ namespace AirTickedSales.Data.EF
             modelBuilder.ApplyConfiguration(new TransactionConfiguration());
             modelBuilder.ApplyConfiguration(new AppUserConfiguration());
             modelBuilder.ApplyConfiguration(new AppRoleConfiguration());
+            modelBuilder.ApplyConfiguration(new TimeKeepingConfigurations());
+            modelBuilder.ApplyConfiguration(new CompanyInfoConfiguration());
 
             modelBuilder.Entity<IdentityUserClaim<Guid>>().ToTable("AppUserClaims");
             modelBuilder.Entity<IdentityUserRole<Guid>>().ToTable("AppUserRoles").HasKey(x => new { x.UserId, x.RoleId });
@@ -68,5 +70,7 @@ namespace AirTickedSales.Data.EF
         public DbSet<ProductImage> ProductImages { get; set; }
 
         public DbSet<Slide> Slides { get; set; }
+        public DbSet<TimeKeeping> TimeKeeping { get; set; }
+        public DbSet<CompanyInfo> CompanyInfo { get; set; }
     }
 }
